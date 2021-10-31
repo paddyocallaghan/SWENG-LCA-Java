@@ -2,10 +2,9 @@ import java.util.*;
 
 class Nodes
 {
-
-	int value;
 	Nodes[] parent;
 	Nodes[] child;
+	int value;
 
 	//initialise node
 	public Nodes(int data)
@@ -33,7 +32,7 @@ public class DAG
 	}
 	
 
-	public int LCA(Nodes node1, Nodes node2)
+	public int dagLCA(Nodes node1, Nodes node2)
 	{
 		return LCA(root, node1, node2);
 	}
@@ -56,30 +55,27 @@ public class DAG
 		}
 		
 		ArrayList<Integer> lowestCommonAncestor = new ArrayList<Integer>();
-		int i = 0;
-		while(i<node1.parent.length)
+		
+		for(int i = 0; i < node1.parent.length; i++)
 		{
-			int j= 0;
-			while(j<node2.parent.length)
+			for(int j = 0; j<node2.parent.length; j++)
 			{
+				
 				if(node1.parent[i].value == node2.parent[j].value)
 				{
 					lowestCommonAncestor.add(node1.parent[i].value);
-					
-					j++;
-				}
-				else
-				{
-					j++;
-				}
+				}	
 			}
-			i++;
 		}
-		if(lowestCommonAncestor.size()==0){
-			if(node1.value > node2.value){
+		
+		if(lowestCommonAncestor.size()==0)
+		{
+			if(node1.value > node2.value)
+			{
 				lowestCommonAncestor.add(LCA(root, node1.parent[0], node2));
 			}
-			else{
+			else 
+			{
 				lowestCommonAncestor.add(LCA(root, node1, node2.parent[0]));
 			}
 		}
